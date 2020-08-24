@@ -86,7 +86,8 @@
           <nav class="mdl-navigation">
             <a class="mdl-navigation__link animsition-link" href="home.php"><i class="material-icons">home</i><span>Home</span></a>
             <a class="mdl-navigation__link animsition-link" href="profile.php"><i class="material-icons">account_circle</i><span>Profile</span></a>
-            <a class="mdl-navigation__link animsition-link" href="tempatwisata.php"><i class="material-icons">image</i><span>Tempat Wisata</span></a>
+            <a class="mdl-navigation__link animsition-link" href="tempatwisata.php"><i class="material-icons">location_on</i><span>Tempat Wisata</span></a>
+            <a class="mdl-navigation__link animsition-link" href="galeri.php"><i class="material-icons">image</i><span>Galeri</span></a>
             <div class="drawer-separator"></div>
             <a class="mdl-navigation__link animsition-link" href="logout.php"><i class="material-icons">logout</i><span>Logout</span></a>
             
@@ -106,17 +107,21 @@
           </div>
           <div class="mdl-card mdl-shadow--2dp">
             <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--4-col">
+              <!-- <div class="mdl-cell mdl-cell--4-col">
                 <a href="home.php" class="no-accent-color" href="tel:1234567890"><i class="material-icons">home</i></a>
                 <span>Home</span>
-              </div>
+              </div> -->
               <div class="mdl-cell mdl-cell--4-col">
                 <a href="profile.php" class="no-accent-color" href="sms://1234567890"><i class="material-icons">account_circle</i></a>
                 <span>Profile</span>
               </div>
               <div class="mdl-cell mdl-cell--4-col">
-                <a href="tempatwisata.php" class="no-accent-color" href="sms://1234567890"><i class="material-icons">image</i></a>
+                <a href="tempatwisata.php" class="no-accent-color" href="sms://1234567890"><i class="material-icons">location_on</i></a>
                 <span>Tempat Wisata</span>
+              </div>
+              <div class="mdl-cell mdl-cell--4-col">
+                <a href="galeri.php" class="no-accent-color" href="sms://1234567890"><i class="material-icons">image</i></a>
+                <span>Galeri</span>
               </div>
             </div>
           </div>

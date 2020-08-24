@@ -88,7 +88,8 @@
           <nav class="mdl-navigation">
             <a class="mdl-navigation__link animsition-link" href="home.php"><i class="material-icons">home</i><span>Home</span></a>
             <a class="mdl-navigation__link animsition-link" href="profile.php"><i class="material-icons">account_circle</i><span>Profile</span></a>
-            <a class="mdl-navigation__link animsition-link" href="tempatwisata.php"><i class="material-icons">image</i><span>Tempat Wisata</span></a>
+            <a class="mdl-navigation__link animsition-link" href="tempatwisata.php"><i class="material-icons">location_on</i><span>Tempat Wisata</span></a>
+            <a class="mdl-navigation__link animsition-link" href="galeri.php"><i class="material-icons">image</i><span>Galeri</span></a>
             <div class="drawer-separator"></div>
             <a class="mdl-navigation__link animsition-link" href="logout.php"><i class="material-icons">logout</i><span>Logout</span></a>
             

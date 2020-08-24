@@ -104,44 +104,100 @@
           <?php
             // session_start();
             include "admin/koneksi.php";
-          $m = $_SESSION['Email'];
-            $e=mysql_query("SELECT * FROM tb_wisatawan WHERE Email='$m'");
-            $dataUser=mysql_fetch_array($e);
+        
 
             if (isset($_POST['simpan'])) {
-                $email = $_POST['email'];
-                $name = $_POST['name'];
-                $phone = $_POST['phone'];
-                $id = $dataUser['Id_Wisatawan'];
+                $Id_Wisatawan = $_SESSION['Id_Wisatawan'];
+                $Id_Wisata = $_POST['Id_Wisata'];
+                $nama_file1		= $_FILES['image']['name'];
+                $lokasi_file1    = $_FILES['image']['tmp_name'];
                 
-                  $sql="UPDATE tb_wisatawan SET  Nama = '$name', Email = '$email', No_Hp = '$phone' WHERE Id_Wisatawan='$id'";
-                  if(mysql_query($sql)){
-                    echo '<center><b style="color:green">Berhasil mengedit profile!</b></center>';
+                move_uploaded_file($lokasi_file1,'admin/images/'.$nama_file1);
+	            $sql=mysql_query("insert into tb_galeri(Id_Wisatawan,image,Id_Wisata) 
+                                                values('$Id_Wisatawan','$nama_file1','$Id_Wisata')");
+                  if($sql){
+                    echo '<center><b style="color:green">Berhasil menambahkan galeri!</b></center>';
                     } else {
-                        echo '<center><b style="color:red">Gagal mengedit profile!</b></center>';
+                        echo '<center><b style="color:red">Gagal menambahkan galeri!</b></center>';
                     }
             }
             ?>
-            <form action="#" method="POST">
+            <form action="#" method="POST" enctype="multipart/form-data">
+              <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
+                <input class="mdl-textfield__input" type="text" id="sample1" name="keterangan" >
+                 <label class="mdl-textfield__label" for="sample1"> Keterangan</label>  
+              </div> -->
+              
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                <input class="mdl-textfield__input" type="text" id="sample1" name="name" value="<?php echo  $dataUser['Nama'];?>" required>
-                 <label class="mdl-textfield__label" for="sample1"> Full name</label>  
+                
+              <select name="Id_Wisata" id="Id_Wisata" class="mdl-textfield__input" required>
+              <option value="">-Pilih Tempat Wisata-</option>
+              <?php 
+              
+              $sql=mysql_query("select * from tb_infowisata order by Id_Wisata desc");
+              while($data=mysql_fetch_array($sql)){  
+              ?>
+              <option value="<?php echo $data['Id_Wisata']; ?>"><?php echo $data['wisata']; ?></option>
+               <?php } ?>
+               
+            </select>
+                  <!-- <label class="mdl-textfield__label" for="sample1"> Tempat Wisata</label>   -->
               </div>
+
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                <input class="mdl-textfield__input" type="text" id="sample1" name="email"  value="<?php echo  $dataUser['Email'];?>" required>
-                <label class="mdl-textfield__label" for="sample1"> Email</label>
-              </div>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-demo">
-                <input class="mdl-textfield__input" type="text" id="sample2" name="phone"  value="<?php echo $dataUser['No_Hp'];?>"/>
-                <label class="mdl-textfield__label" for="sample2">Phone</label>
+                <input class="mdl-textfield__input" type="file" id="sample1" name="image" required>
+                <!-- <label class="mdl-textfield__label" for="sample1"> Foto</label> -->
               </div>
               
+
             <input type="submit" name="simpan" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary right" value="Simpan">                
               
           
             </form>
+
+            
             <div class="clr"></div>
             
+          </div>
+          <div class="player-featured">
+            <p><strong>Galeri</strong>
+            <!-- <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" data-upgraded=",MaterialButton,MaterialRipple">
+              MORE
+            <span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></button> -->
+            </p>
+            <div class="mdl-grid">
+            <?php
+                    $sql=mysql_query("select 
+                    tb_galeri.id, 
+                    tb_galeri.image as im, 
+                    tb_infowisata.wisata as w, 
+                    tb_infowisata.Alamat,
+                    tb_wisatawan.Nama
+                    from tb_galeri 
+                    INNER JOIN tb_infowisata ON tb_galeri.Id_Wisata = tb_infowisata.Id_Wisata
+                    INNER JOIN tb_wisatawan ON tb_galeri.Id_Wisatawan = tb_wisatawan.Id_Wisatawan
+                    
+                    order by id desc");
+                    while($data=mysql_fetch_array($sql)){                   
+                    ?>
+              <div class="mdl-cell mdl-cell--4-col">
+                <div class="mdl-card mdl-shadow--2dp">
+                <?php 
+                    $img = 'admin/images/'.$data['im'];
+                    if (file_exists($img)) {
+                        echo '<a href="detail_image.php?id='.$data['id'].'"><img src="'.$img.'" alt=""></a>';
+                    } else {
+                      echo '<img src="img/noimage.jpg" alt="">';
+
+                    }
+                      ?>
+                  <span><strong style="color:red"><?php echo $data['w'];?></strong></span>
+                  <!-- <span><?php echo $data['Alamat'];?></span> -->
+                  <span>Dibuat oleh: <b><?php echo $data['Nama'];?></b></span>
+                </div>
+              </div>
+                    <?php } ?>
+            </div>
           </div>
           <!-- load more --> 
           <!-- <a href="article.html" class="load-more mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-upgraded=",MaterialButton,MaterialRipple">
